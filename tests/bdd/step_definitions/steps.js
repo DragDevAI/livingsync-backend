@@ -1,3 +1,4 @@
+/*
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { By, until } = require('selenium-webdriver');
 const assert = require('assert');
@@ -6,7 +7,7 @@ Given('I have a valid owner account', async function () {
 });
 
 Given('I am on the login page', async function () {
-    await this.driver.get('http://127.0.0.1:5500/f.end/index.html'); 
+    await this.driver.get('http://127.0.0.1:5500/f.end/index.html');
 });
 
 When('I enter my username {string}', async function (username) {
@@ -54,14 +55,12 @@ Then('I should be returned to the login page', async function () {
     const currentUrl = await this.driver.getCurrentUrl();
     assert.ok(currentUrl.includes('index.html'), 'Logout did not redirect to index.html');
 });
+*/
 
 // Options for Slow Mode to see the steps in action
-/*
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { By, until } = require('selenium-webdriver');
 const assert = require('assert');
-
-// --- HELPER FUNCTIONS FOR DEMO MODE ---
 
 // 1. Sleep: Pauses execution for X milliseconds
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -74,14 +73,11 @@ async function slowType(element, text, delay = 100) {
     }
 }
 
-// --------------------------------------
-
 Given('I have a valid owner account', async function () {
     // Database is already seeded.
 });
 
 Given('I am on the login page', async function () {
-    // ⚠️ REPLACE THIS WITH YOUR EXACT LIVE SERVER URL
     await this.driver.get('http://127.0.0.1:5500/f.end/index.html'); 
     
     // DEMO: Wait 1s so you can see the empty form
@@ -158,4 +154,3 @@ Then('I should be returned to the login page', async function () {
     const currentUrl = await this.driver.getCurrentUrl();
     assert.ok(currentUrl.includes('index.html'), 'Logout did not redirect to index.html');
 });
-*/

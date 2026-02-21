@@ -14,7 +14,6 @@ const functionController = require('../../controllers/cFunction');
 const reportController = require('../../controllers/cReport');
 
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 // Mocking all the models to avoid touching the database.
 jest.mock('../../models/mAccount');
@@ -23,7 +22,6 @@ jest.mock('../../models/mBBQ');
 jest.mock('../../models/mFunction');
 jest.mock('../../models/mReport');
 jest.mock('bcrypt');
-jest.mock('jsonwebtoken');
 
 describe('LivingSync Backend Controller Tests', () => {
     let req, res, next;
@@ -69,8 +67,6 @@ describe('LivingSync Backend Controller Tests', () => {
         await authController.createAccount(req, res, next);
 
         // --- Step 3: Assert ---
-        // We check if CREATE was called OR if FIND was called. 
-        // This makes the test robust regardless of specific controller logic flow.
         const createCalled = Account.create.mock.calls.length > 0;
         const findCalled = Account.findOne.mock.calls.length > 0;
         
@@ -97,8 +93,7 @@ describe('LivingSync Backend Controller Tests', () => {
         // --- Step 3: Assert ---
         expect(Visitor.create).toHaveBeenCalled();
         expect(res.statusCode).toBe(201);
-        // Updated to match your controller's actual response
-        expect(res._getJSONData().message).toMatch(/Visitor.*(registered|created)/i);
+        expect(res._getJSONData().message).toMatch(/Visitor.*(registered)/i);
     });
 
     // Unit Test 3: BBQ Booking
@@ -138,7 +133,6 @@ describe('LivingSync Backend Controller Tests', () => {
         // --- Step 3: Assert ---
         // Expect a 400 or 409 Conflict error
         expect(res.statusCode).not.toBe(201); 
-        // Updated exact text match based on your logs
         expect(res._getJSONData().message).toMatch(/Sorry, fully booked for this date./i);
         // Ensure create was NEVER called
         expect(FunctionRoom.create).not.toHaveBeenCalled();
